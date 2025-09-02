@@ -7,8 +7,8 @@ module Domain
         @repository = repository
       end
 
-      def call(name, price)
-        product = Product.new(id: @repository.next_id, name: name, price: price)
+      def call(new_id, name, price)
+        product = Product.new(id: new_id, name: name, price: price)
         @repository.add(product)
         product
       end

@@ -21,9 +21,10 @@ module Infrastructure
         req = Rack::Request.new(env)
         path = req.path_info
 
-        route = @routes[path]
+        route = @routes.find { |base_path, _handler| path.start_with?(base_path) }
         if route
-          route.call(env)
+          _, handler = route
+          handler.call(env)
         else
           [404, { 'content-type' => 'application/json' }, [{ error: 'Not Found' }.to_json]]
         end

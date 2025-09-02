@@ -1,0 +1,112 @@
+openapi: 3.0.3
+info:
+  title: Products API
+  description: API para autenticación de usuarios y gestión de productos.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3000
+
+paths:
+  /auth/login:
+    post:
+      summary: Login de usuario
+      description: Retorna un JWT válido para autenticación.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: user@example.com
+                password:
+                  type: string
+                  format: password
+                  example: secret123
+      responses:
+        '200':
+          description: Login exitoso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: JWT válido
+        '401':
+          description: Credenciales inválidas
+        '422':
+          description: Datos inválidos
+
+  /products:
+    get:
+      summary: Listado de productos
+      description: Retorna todos los productos disponibles.
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Lista de productos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: 123
+                    name:
+                      type: string
+                      example: Producto A
+                    price:
+                      type: number
+                      example: 49.99
+        '401':
+          description: No autorizado (falta JWT)
+
+    post:
+      summary: Crear producto
+      description: Crea un producto nuevo de manera asincrónica (retorna 202 Accepted).
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - price
+              properties:
+                name:
+                  type: string
+                  example: Nuevo Producto
+                price:
+                  type: number
+                  example: 100.50
+      responses:
+        '202':
+          description: Creación aceptada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Product creation scheduled
+        '422':
+          description: Datos inválidos
+        '401':
+          description: No autoriza

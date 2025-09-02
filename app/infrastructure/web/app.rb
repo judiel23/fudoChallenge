@@ -25,7 +25,7 @@ module Infrastructure
         if route
           route.call(env)
         else
-          [404, { 'Content-Type' => 'application/json' }, [{ error: 'Not Found' }.to_json]]
+          [404, { 'content-type' => 'application/json' }, [{ error: 'Not Found' }.to_json]]
         end
       end
     end

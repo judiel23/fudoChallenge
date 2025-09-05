@@ -1,0 +1,2 @@
+# TCP 
+TCP es un protocolo que asegura que los datos viajen por internet de forma ordenada y sin pérdidas. Divide la información en paquetes, los envía y confirma su entrega, reordenándolos al llegar. Es confiable y se usa en servicios  web, correo y transferencia de archivos.

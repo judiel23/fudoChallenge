@@ -116,7 +116,7 @@ README.txt
 
 ```
 
-git clone <repo_url>
+git clone https://github.com/judiel23/fudoChallenge.git
 
 ```
 
@@ -124,7 +124,7 @@ git clone <repo_url>
 
 ```
 
-cd <repo_folder>
+cd fudoChallenge
 
 ```
 
